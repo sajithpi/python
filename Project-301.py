@@ -144,7 +144,7 @@ while(banking != False):
             banking = True
             continue
         elif banking == 2:
-            print(Fore.LIGHTGREEN_EX + "ThankYou for Using our Services")
+            print(Fore.LIGHTGREEN_EX + "ThankYou for Using our Services using repo")
             banking = False
             break
     else:
