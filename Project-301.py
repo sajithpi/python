@@ -1,4 +1,4 @@
-from os import stat
+
 import datetime
 import time
 from colorama import Fore, init
@@ -48,14 +48,14 @@ class Bank:
             print(Fore.GREEN +"Successfully Deposited To Your Account".upper())      
             return round(amount,2)
         else:
-            print(Fore.RED+"Enter A Proper Amount For Deposit".upper()) 
+            print(Fore.RED+"REQUESTED AMOUNT CANNOT BE DEPOSITED TO YOUR ACCOUNT, PLEASE ENTER A PROPER AMOUNT".upper()) 
             return 0
          
     @property
     def currentBalance(self):
 
         
-                print(Fore.LIGHTBLUE_EX + "\nYour Current Balance:".upper(),round(self.savings_amount,2))     
+                print(Fore.GREEN + "\nYour Current Balance:".upper(),round(self.savings_amount,2))     
                 return self.savings_amount
         
          
@@ -132,7 +132,7 @@ while(banking != False):
         print(Fore.RED +"Exception Was Caught Here".upper())
         print(type(e))
     try:
-        banking = int(input(Fore.CYAN +'\nWould You Like To Use Our Atm Service Again?\n 1.Yes \n 2.No\n'.upper()))
+        banking = int(input(Fore.WHITE +'\nWould You Like To Use Our Atm Service Again?\n 1.Yes \n 2.No\n'.upper()))
     except ValueError:
          print(Fore.RED+"You Choosed Improper Option \nLogin Again To Use Our Services".upper())
          break
@@ -148,4 +148,6 @@ while(banking != False):
     else:
         print(Fore.RED+"Don't use Improper Option \nLogin Again To Use Our Services".upper())
         break
+
+       
 
