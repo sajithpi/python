@@ -4,12 +4,11 @@ import time
 from colorama import Fore, init
 init()
 
-
 class Bank:
     service = '';
     # savings_amount = 10000;
-    def service_switch(self):    
-            self.service = int(input(Fore.LIGHTYELLOW_EX + "Choose Your bank option \n 1-Withdraw \n 2-Deposit \n 3-Balance-Enquiry \n"))
+    def service_selector(self):    
+            self.service = int(input(Fore.LIGHTYELLOW_EX + "Choose Your Transaction \n 1-Withdraw \n 2-Deposit \n 3-Balance-Enquiry \n".upper()))
             if self.service == 1:
 
                 return 'Withdraw'
@@ -22,41 +21,41 @@ class Bank:
                 return 'balancecheck'
         
             else:
-                print(Fore.RED+"You choose wrong selection")
+                print(Fore.RED+"You Choose Wrong Selection".upper())
      
-      
-
     def withdraw(self,amount):
         if amount > 0:
             if self.savings_amount > amount :
-                print(Fore.LIGHTBLUE_EX +"Processing\n")
+                print(Fore.LIGHTBLUE_EX +"PROCESSING\n")
                 time.sleep(1.0)
-                self.savings_amount = self.savings_amount - amount
-                print(Fore.GREEN +"\nWithdrawel successfully completed")
+                self.savings_amount = self.savings_amount - round(amount,2)
+                print(Fore.GREEN +"\nWithdrawel Successfully Completed".upper())
                 return amount
             
             else:
-                print(Fore.RED+"\nThere is not much money in your account")
+                print(Fore.RED+"\nThere Is Not Much Money In Your Account".upper())
+                return 0
                 
         else:
-            print(Fore.RED+"\nEnter a Proper Amount to Withdraw")
-          
-            
+            print(Fore.RED+"\nREQUESTED AMOUNT CANNOT BE WITHDRAW, PLEASE ENTER A PROPER AMOUNT")
+            return 0
+                      
     def deposit(self,amount):
         if(amount > 0):
-            print(Fore.LIGHTBLUE_EX +"Processing\n")
+            print(Fore.LIGHTBLUE_EX +"PROCESSING\n")
             time.sleep(1.0)
-            self.savings_amount = self.savings_amount + amount
-            print(Fore.GREEN +"Successfully Deposited to your account")      
+            self.savings_amount = self.savings_amount + round(amount,2)
+            print(Fore.GREEN +"Successfully Deposited To Your Account".upper())      
             return amount
         else:
-            print(Fore.RED+"Enter a proper amount for deposit") 
+            print(Fore.RED+"Enter A Proper Amount For Deposit".upper()) 
+            return 0
          
     @property
     def currentBalance(self):
 
         
-                print(Fore.LIGHTBLUE_EX + "\nYour Current Balance:",self.savings_amount)     
+                print(Fore.LIGHTBLUE_EX + "\nYour Current Balance:".upper(),round(self.savings_amount,2))     
                 return self.savings_amount
         
          
@@ -71,8 +70,6 @@ class Bank:
               else:
                   self.savings_amount = 0.00
                   
-
-
     def printTransaction(self,serviceType,amount):
     
      
@@ -82,38 +79,39 @@ class Bank:
             file.write(f"\t\t\t{serviceType}\t\t{amount}\t\t\tCurrent Balance: {self.savings_amount}\n")
           
 
-
-print(Fore.MAGENTA +"\t\tWelcome to Our Bank")
+print(Fore.MAGENTA +"\t\tWelcome to Our Bank".upper())
 banking = True
 while(banking != False):
     try:
-        pin = int(input(Fore.BLUE +"\nEnter Your 4 digit pin Number: "))
+        pin = int(input(Fore.BLUE +"\nEnter Your 4 Digit Pin Number: ".upper()))
         if len(str(pin)) != 4:
             raise TypeError
         if(pin == 1234):
             bank = Bank()
-            service = bank.service_switch()
+            service = bank.service_selector()
             service = service.upper()
             bank.ReadStatement()
-            print(Fore.WHITE +"Service option ",service)
+            print(Fore.LIGHTWHITE_EX +"TRANSACTION TYPE: ".upper(),service)
             if service.lower() == 'withdraw':
                 
                 try:
-                    amount = float(input(Fore.LIGHTMAGENTA_EX + "Enter the amount for the withdrawel: "))
-                    amount = bank.withdraw(amount)
+                    amount = float(input(Fore.LIGHTMAGENTA_EX + "Enter The Amount For Withdrawel: ".upper()))
+                    amount = bank.withdraw(round(amount,2))
                     savings = bank.currentBalance
-                    bank.printTransaction(service,amount)
+                    if amount!=0:
+                        bank.printTransaction(service,amount)
                 except  ValueError:
-                    print(Fore.RED + "Only Numbers are alloweded ")   
+                    print(Fore.RED + "Only Numbers Are Alloweded ".upper())   
 
                 except Exception as e:
-                    print(Fore.RED +"Exception caught")
+                    print(Fore.RED +"Exception caught".upper())
                     print(type(e))
                     
             if service.lower() == 'deposit ':
-                amount = float(input(Fore.LIGHTMAGENTA_EX +"Enter the amount:\n"))
-                amount = bank.deposit(amount)     
-                bank.printTransaction(service,amount) 
+                amount = float(input(Fore.LIGHTMAGENTA_EX +"Enter The Amount:\n".upper()))
+                amount = bank.deposit(round(amount,2))  
+                if amount!= 0:   
+                    bank.printTransaction(service,amount) 
                 bank.currentBalance  
                     
             
@@ -121,22 +119,22 @@ while(banking != False):
                 bank.currentBalance
 
         else:
-            print(Fore.RED +"\n Enter Your Password Correctly To Use Our Atm Services")
+            print(Fore.RED +"\n Enter Your Password Correctly To Use Our Atm Services".upper())
             
         
     except TypeError:
-        print(Fore.RED +"Please Enter 4 digits number correctly")
+        print(Fore.RED +"Please Enter 4 Digits Number Correctly".upper())
     except ValueError:
-        print(Fore.RED +"Only numbers are alloweded")
+        print(Fore.RED +"Only Numbers Are Alloweded".upper())
     except AttributeError:
-          print(Fore.RED +"Select the option carefully")
+          print(Fore.RED +"Select The Option Carefully".upper())
     except Exception as e:
-        print(Fore.RED +"Exception was caught hetr")
+        print(Fore.RED +"Exception Was Caught Here".upper())
         print(type(e))
     try:
-        banking = int(input(Fore.CYAN +'\nWould you like to use our atm service again?\n 1.Yes \n 2.No\n'))
+        banking = int(input(Fore.CYAN +'\nWould You Like To Use Our Atm Service Again?\n 1.Yes \n 2.No\n'.upper()))
     except ValueError:
-         print(Fore.RED+"You Choosed Improper Option \nLogin again to use our services")
+         print(Fore.RED+"You Choosed Improper Option \nLogin Again To Use Our Services".upper())
          break
     if banking in [1 , 2]:
 
@@ -144,11 +142,11 @@ while(banking != False):
             banking = True
             continue
         elif banking == 2:
-            print(Fore.LIGHTGREEN_EX + "ThankYou for Using our Services using repo")
+            print(Fore.LIGHTGREEN_EX + "ThankYou for Using our Services".upper())
             banking = False
             break
     else:
-        print(Fore.RED+"Don't use Improper Option \nLogin again to use our services")
+        print(Fore.RED+"Don't use Improper Option \nLogin Again To Use Our Services".upper())
         break
 
        
