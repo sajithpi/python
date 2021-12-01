@@ -149,5 +149,3 @@ while(banking != False):
         print(Fore.RED+"Don't use Improper Option \nLogin Again To Use Our Services".upper())
         break
 
-       
-
