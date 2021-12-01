@@ -30,7 +30,7 @@ class Bank:
                 time.sleep(1.0)
                 self.savings_amount = self.savings_amount - round(amount,2)
                 print(Fore.GREEN +"\nWithdrawel Successfully Completed".upper())
-                return amount
+                return round(amount,2)
             
             else:
                 print(Fore.RED+"\nThere Is Not Much Money In Your Account".upper())
@@ -46,7 +46,7 @@ class Bank:
             time.sleep(1.0)
             self.savings_amount = self.savings_amount + round(amount,2)
             print(Fore.GREEN +"Successfully Deposited To Your Account".upper())      
-            return amount
+            return round(amount,2)
         else:
             print(Fore.RED+"Enter A Proper Amount For Deposit".upper()) 
             return 0
@@ -76,7 +76,7 @@ class Bank:
         current_time = datetime.datetime.now()
         with open('bankBalanceStatement.text','a') as file:
             file.write(f"\n{current_time.day}/{current_time.month}/{current_time.year}\t\t\t{current_time.hour}:{current_time.minute}:{current_time.second} ")       
-            file.write(f"\t\t\t{serviceType}\t\t{amount}\t\t\tCurrent Balance: {self.savings_amount}\n")
+            file.write(f"\t\t\t{serviceType}\t\t{amount}\t\t\tCurrent Balance: {round(self.savings_amount,2)}\n")
           
 
 print(Fore.MAGENTA +"\t\tWelcome to Our Bank".upper())
@@ -96,10 +96,10 @@ while(banking != False):
                 
                 try:
                     amount = float(input(Fore.LIGHTMAGENTA_EX + "Enter The Amount For Withdrawel: ".upper()))
-                    amount = bank.withdraw(round(amount,2))
+                    amount = bank.withdraw(amount)
                     savings = bank.currentBalance
                     if amount!=0:
-                        bank.printTransaction(service,amount)
+                        bank.printTransaction(service,round(amount,2))
                 except  ValueError:
                     print(Fore.RED + "Only Numbers Are Alloweded ".upper())   
 
@@ -109,7 +109,7 @@ while(banking != False):
                     
             if service.lower() == 'deposit ':
                 amount = float(input(Fore.LIGHTMAGENTA_EX +"Enter The Amount:\n".upper()))
-                amount = bank.deposit(round(amount,2))  
+                amount = bank.deposit(amount)  
                 if amount!= 0:   
                     bank.printTransaction(service,amount) 
                 bank.currentBalance  
